@@ -12,7 +12,9 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to EverGreen" />
+        android:layout_centerHorizontal="true"
+        android:text="@string/welcome_to_evergreen"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/button1"
@@ -20,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/button2"
         android:layout_centerHorizontal="true"
-        android:text="Login" />
+        android:text="@string/login" />
 
     <Button
         android:id="@+id/button2"
@@ -29,7 +31,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="86dp"
-        android:text="Register" />
+        android:text="@string/register" />
 
     <ImageView
         android:id="@+id/imageView1"
@@ -37,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/button1"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="33dp"
-        android:src="@drawable/ic_launcher" />
+        android:layout_marginBottom="82dp"
+        android:src="@drawable/ic_launcher" android:contentDescription="@string/todo"/>
 
 </RelativeLayout>
