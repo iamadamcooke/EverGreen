@@ -13,11 +13,13 @@ import android.widget.TextView;
 
 public class LoginActivity extends Activity {
 
+	DBManager dbManager;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
+		dbManager = new DBManager(this);
 		Button loginbtn = (Button) findViewById(R.id.btnLogin);
 		final EditText passwordtxt = (EditText) findViewById(R.id.passwordText);
 		final EditText usernametxt = (EditText) findViewById(R.id.usernameText);
@@ -25,51 +27,9 @@ public class LoginActivity extends Activity {
 		
 		incorrectLogin.setVisibility(TextView.INVISIBLE);
 		
-		usernametxt.addTextChangedListener(new TextWatcher(){
-			
-			public void afterTextChanged(Editable s){
-				
-			}
 
-			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1,
-					int arg2, int arg3) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
-					int arg3) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
 		
-		passwordtxt.addTextChangedListener(new TextWatcher(){
-
-			@Override
-			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
+	
 		
 		
 		loginbtn.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +37,7 @@ public class LoginActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				//switching to register screen
-				if(usernametxt.getEditableText().toString().matches("admin")&&passwordtxt.getText().toString().matches("pass123"))
+				if(dbManager.getPass(usernametxt.getText().toString()).equals(passwordtxt.getText().toString()))
 				{
 					Intent loginIntent = new Intent(getApplicationContext(), Success.class);
 					startActivity(loginIntent);
