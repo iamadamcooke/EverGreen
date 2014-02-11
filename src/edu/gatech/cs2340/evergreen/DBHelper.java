@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper{
 
     private static final String DATABASE_USERS = "create table Users" +
-    		"(id integer primary key AUTO_INCREMENT, username text not null, password text not null);";
+    		"(id integer primary key, username text not null, password text not null);";
 	
     
     public  DBHelper(Context context) {
@@ -19,7 +19,7 @@ public class DBHelper extends SQLiteOpenHelper{
 		db.execSQL(DATABASE_USERS);
 		db.execSQL("INSERT INTO " +
                 "Users" +
-                " Values ('admin','pass123');");
+                " Values (1,'admin','pass123');");
 		
 	}
 
