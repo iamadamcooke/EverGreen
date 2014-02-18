@@ -10,5 +10,6 @@
     <string name="todo">todo</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_success">Success</string>
+    <string name="title_activity_register">Register Account</string>
 
 </resources>
