@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="18" />
 
     <application
@@ -33,6 +33,10 @@
         <activity
             android:name="edu.gatech.cs2340.evergreen.RegisterActivity"
             android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name="edu.gatech.cs2340.evergreen.AccountsActivity"
+            android:label="@string/title_activity_accounts" >
         </activity>
     </application>
 

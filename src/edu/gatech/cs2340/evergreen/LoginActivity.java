@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class LoginActivity extends Activity {
 
-	DBManager dbManager;
+	private DBManager dbManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +37,11 @@ public class LoginActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				//switching to register screen
-				if(dbManager.getPass(usernametxt.getText().toString()).equals(passwordtxt.getText().toString()))
+				String passForUser = dbManager.getPass(usernametxt.getText().toString());
+				if((passForUser!= null) && (passForUser.equals(passwordtxt.getText().toString())) )
 				{
-					Intent loginIntent = new Intent(getApplicationContext(), Success.class);
+					Intent loginIntent = new Intent(getApplicationContext(), AccountsActivity.class);
+					loginIntent.putExtra("userId", dbManager.getUserId(usernametxt.getText().toString()));
 					startActivity(loginIntent);
 				}else incorrectLogin.setVisibility(TextView.VISIBLE);
 				
