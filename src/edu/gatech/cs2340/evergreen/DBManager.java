@@ -2,6 +2,7 @@ package edu.gatech.cs2340.evergreen;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -21,6 +22,7 @@ public class DBManager {
 	public final static String BALANCE = "balance";
 	public final static String INTEREST_RATE = "interest_rate";
 	public final static String ACCOUNTS_TABLE = "Accounts";
+	public final static String TRANSACTIONS_TABLE = "Transactions";
 	
 	
 	public DBManager(Context context){
@@ -35,13 +37,22 @@ public class DBManager {
 		   return db.insert(USER_TABLE, null, values);  
 		}
 	
+	public long createTransaction(int id, String type, String name, double amount) {
+		ContentValues values = new ContentValues();
+		values.put("account_id", id);
+		values.put("transaction_type", type);
+		values.put("transaction_name", name);
+		values.put("amount", amount);
+		return db.insert(TRANSACTIONS_TABLE, null, values);
+	}
+	
 	public long createAccount(int id, String accountName, String displayName, double balance, double interestRate) {
 		ContentValues values = new ContentValues();
-		values.put("_id",id);
-		values.put("account_name", accountName);
-		values.put("display_name", displayName);
-		values.put("balance", balance);
-		values.put("interest_rate",	interestRate);
+		values.put("user_id",id);
+		values.put(ACCOUNT_NAME, accountName);
+		values.put(DISPLAY_NAME, displayName);
+		values.put(BALANCE, balance);
+		values.put(INTEREST_RATE,	interestRate);
 		return db.insert(ACCOUNTS_TABLE, null, values);
 	}
 	
@@ -57,7 +68,17 @@ public class DBManager {
             } 
 		 
 		 return -1;
+	}
 	
+	public int getAccountId(String accountName, int userId) {
+		String[] args = {String.valueOf(userId), accountName};
+		Cursor c = db.rawQuery("SELECT _id FROM Accounts where user_id=? AND display_name=?",args);
+		if(c != null) {
+			if(c.moveToFirst()) {
+				return c.getInt(c.getColumnIndex("_id"));
+			}
+		}
+		return -1;
 	}
 	
 	public String getPass(String user){
@@ -74,12 +95,46 @@ public class DBManager {
 	return null;
 	}
 	
+	public long updateAccountBalance(int accountId, double newBalance) {
+		ContentValues values = new ContentValues();
+		values.put("balance", newBalance);
+		String where = "_id=?";
+		return db.update(ACCOUNTS_TABLE, values, where, new String[]{String.valueOf(accountId)});
+	}
+	
+	public double getAccountBalance(int accountId) {
+		String[] args = {String.valueOf(accountId)};
+		Cursor c = db.rawQuery("SELECT balance FROM Accounts where _id=?", args);
+		if(c != null) {
+			if(c.moveToFirst()) {
+				return c.getDouble(c.getColumnIndex("balance"));
+			}
+		}
+		return 0;
+	}
+	
+	public Account getAccount(int accountId) {
+		String[] args = {String.valueOf(accountId)};
+		Cursor c = db.rawQuery("SELECT * FROM Accounts where _id=?", args);
+		if(c != null) {
+			if(c.moveToFirst()) {
+				String accName = c.getString(c.getColumnIndex(ACCOUNT_NAME));
+				String dispName = c.getString(c.getColumnIndex(DISPLAY_NAME));
+				double bal = c.getDouble(c.getColumnIndex(BALANCE));
+				double ir = c.getDouble(c.getColumnIndex(INTEREST_RATE));
+				return new Account(accName, dispName, bal, ir);
+			}
+		}
+		return null;
+	}
+	
+	
 	public ArrayList<Account> getAccounts(int userId) {
 		ArrayList<Account> accounts = new ArrayList<Account>();
 		String[] args = {String.valueOf(userId)};
 		Cursor c = db.rawQuery("SELECT * FROM " +
 				ACCOUNTS_TABLE + 
-				" where _id" + "=?", args);
+				" where user_id" + "=?", args);
 		if(c != null) {
 			if(c.moveToFirst()) {
 				while(c.isAfterLast() == false) {
@@ -97,5 +152,27 @@ public class DBManager {
 		
 		return accounts;
 		
+	}
+	
+	public ArrayList<Transaction> getTransactions(int accountId) {
+		ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+		String[] args = {String.valueOf(accountId)};
+		Cursor c = db.rawQuery("SELECT * FROM Transactions where account_id" + "=?", args);
+		if(c != null) {
+			if(c.moveToFirst()) {
+				while(c.isAfterLast() == false) {
+					String type = c.getString(c.getColumnIndex("transaction_type"));
+					String name = c.getString(c.getColumnIndex("transaction_name"));
+					double amount = c.getDouble(c.getColumnIndex("amount"));
+					
+					transactions.add(new Transaction(type, name, amount));
+					c.moveToNext();
+				}
+			}
+			else return null;
+		}
+		else return null;
+		Collections.reverse(transactions);
+		return transactions;
 	}
 }

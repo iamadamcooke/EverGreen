@@ -13,5 +13,7 @@
     <string name="title_activity_register">Register Account</string>
     <string name="title_activity_accounts">Accounts</string>
     <string name="action_newAccount">New Account</string>
+    <string name="title_activity_transactions">Transactions</string>
+    <string name="action_newTransaction">New Transaction</string>
 
 </resources>

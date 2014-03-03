@@ -20,6 +20,10 @@ public class AccountsAdapter extends ArrayAdapter<Account> {
 		this.context = context;
 		this.accounts = accounts;
 	}
+	
+	public void setAccounts(ArrayList<Account> accounts) {
+		this.accounts = accounts;
+	}
  
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {

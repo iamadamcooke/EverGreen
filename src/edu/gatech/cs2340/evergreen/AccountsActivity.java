@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.Menu;
@@ -61,9 +62,22 @@ public class AccountsActivity extends Activity {
 	}
 	
 	public void OnAccountClicked(View view) {
-		 
-		//nothing yet
+		final int position = lv.getPositionForView(view);
+		Account acc = accounts.get(position);
+		Intent intent = new Intent(getApplicationContext(), TransactionsActivity.class);
+		intent.putExtra("account_id", dbManager.getAccountId(acc.getDisplayName(), userId));
+		startActivity(intent);
  
+	}
+	
+	public void onResume() {
+		super.onResume();
+		accounts = dbManager.getAccounts(userId);
+		if(accounts == null) {
+			accounts = new ArrayList<Account>();
+		}
+		accountsAdapter.setAccounts(accounts);
+		accountsAdapter.notifyDataSetChanged();
 	}
 	
 	private void openNewAccountDialog() {
@@ -110,7 +124,7 @@ public class AccountsActivity extends Activity {
                     	String dispName = display.getText().toString();
                     	double balance = Double.parseDouble(bal.getText().toString());
                     	double intRate = Double.parseDouble(ir.getText().toString());
-                    	dbManager.createAccount(userId, accName, dispName, balance, intRate);
+                    	long i = dbManager.createAccount(userId, accName, dispName, balance, intRate);
                         accounts.add(new Account(accName, dispName, balance, intRate));
                         accountsAdapter.notifyDataSetChanged();
                     }});
