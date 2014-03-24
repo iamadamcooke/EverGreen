@@ -1,5 +1,8 @@
 package edu.gatech.cs2340.evergreen;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -37,12 +40,18 @@ public class DBManager {
 		   return db.insert(USER_TABLE, null, values);  
 		}
 	
-	public long createTransaction(int id, String type, String name, double amount) {
+	public long createTransaction(int id, int userId, String type, String name, double amount, Date date, String category) {
 		ContentValues values = new ContentValues();
 		values.put("account_id", id);
+		values.put("user_id", userId);
 		values.put("transaction_type", type);
 		values.put("transaction_name", name);
-		values.put("amount", amount);
+		values.put("amount", amount); 
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+		String d = dateFormat.format(date);
+		
+		values.put("date", Integer.parseInt(d));
+		values.put("category", category);
 		return db.insert(TRANSACTIONS_TABLE, null, values);
 	}
 	
@@ -164,8 +173,18 @@ public class DBManager {
 					String type = c.getString(c.getColumnIndex("transaction_type"));
 					String name = c.getString(c.getColumnIndex("transaction_name"));
 					double amount = c.getDouble(c.getColumnIndex("amount"));
+					String category = c.getString(c.getColumnIndex("category"));
+					String dateAsString = (c.getString(c.getColumnIndex("date")));
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+					java.util.Date utilDate;
+					try {
+						utilDate = dateFormat.parse(dateAsString);
+						Date date = new Date(utilDate.getTime());
+						transactions.add(new Transaction(type, name, amount, date, category));
+					} catch (ParseException e) {
+						//nothing now
+					}
 					
-					transactions.add(new Transaction(type, name, amount));
 					c.moveToNext();
 				}
 			}
@@ -173,6 +192,39 @@ public class DBManager {
 		}
 		else return null;
 		Collections.reverse(transactions);
+		return transactions;
+	}
+	
+	public ArrayList<Transaction> getTransactions(int userId, String startDate, String endDate) {
+		ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+		String[] args = {String.valueOf(userId), startDate, endDate};
+		Cursor c = db.rawQuery("SELECT * FROM Transactions where user_id=? AND date>=? AND date<=? AND category!='Deposit'", args);
+		if(c != null) {
+			if(c.moveToFirst()) {
+				while(c.isAfterLast() == false) {
+					String type = c.getString(c.getColumnIndex("transaction_type"));
+					String name = c.getString(c.getColumnIndex("transaction_name"));
+					double amount = c.getDouble(c.getColumnIndex("amount"));
+					String category = c.getString(c.getColumnIndex("category"));
+					String dateAsString = (c.getString(c.getColumnIndex("date")));
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+					java.util.Date utilDate;
+					try {
+						utilDate = dateFormat.parse(dateAsString);
+						Date date = new Date(utilDate.getTime());
+						transactions.add(new Transaction(type, name, amount, date, category));
+					} catch (ParseException e) {
+						//nothing now
+					}
+					
+					c.moveToNext();
+				}
+			}
+			else return null;
+		}
+		else return null;
+		
+		
 		return transactions;
 	}
 }

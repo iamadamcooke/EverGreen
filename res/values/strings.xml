@@ -15,5 +15,6 @@
     <string name="action_newAccount">New Account</string>
     <string name="title_activity_transactions">Transactions</string>
     <string name="action_newTransaction">New Transaction</string>
+    <string name="title_activity_spending_report">Spending Report</string>
 
 </resources>

@@ -42,6 +42,10 @@
             android:name="edu.gatech.cs2340.evergreen.TransactionsActivity"
             android:label="@string/title_activity_transactions" >
         </activity>
+        <activity
+            android:name="edu.gatech.cs2340.evergreen.SpendingReportActivity"
+            android:label="@string/title_activity_spending_report" >
+        </activity>
     </application>
 
 </manifest>
