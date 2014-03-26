@@ -12,30 +12,53 @@ public class Transaction {
 	private String category;
 	
 	public Transaction(String type, String name, double amount, Date date, String category) {
-		this.name = name;
-		this.type = type;
-		this.amount = amount;
-		this.date = date;
-		this.category = category;
+		try{
+			this.name = name;
+			this.type = type;
+			this.amount = amount;
+			this.date = date;
+			this.category = category;
+		}
+		catch (IllegalArgumentException e){
+			
+		}
 	}
 	
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		try{
+			this.name = name;
+		}
+		catch (IllegalArgumentException e)
+		{
+			
+		}
 	}
 	public double getAmount() {
 		return amount;
 	}
 	public void setAmount(double amount) {
-		this.amount = amount;
+		try{
+			this.amount = amount;
+		}
+		catch (IllegalArgumentException e)
+		{
+			
+		}
 	}
 	public String getType() {
 		return type;
 	}
 	public void setType(String type) {
-		this.type = type;
+		try{
+			this.type = type;
+		}
+		catch (IllegalArgumentException e)
+		{
+			
+		}
 	}
 	
 	public Date getDate() {
@@ -43,7 +66,13 @@ public class Transaction {
 	}
 	
 	public void setDate(Date date) {
-		this.date = date;
+		try{
+			this.date = date;
+		}
+		catch (IllegalArgumentException e)
+		{
+			
+		}
 	}
 	
 	public String getCategory() {
@@ -51,7 +80,13 @@ public class Transaction {
 	}
 	
 	public void setCategory(String Category) {
-		this.category = category;
+		try{
+			this.category = Category;
+		}
+		catch (IllegalArgumentException e)
+		{
+			
+		}
 	}
 	
 }
