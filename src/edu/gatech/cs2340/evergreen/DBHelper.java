@@ -42,7 +42,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_TABLE_USERS);
 		db.execSQL(CREATE_TABLE_ACCOUNTS);
 		db.execSQL(CREATE_TABLE_TRANSACTIONS);
-		db.execSQL("INSERT INTO " + "Users" + "Values (1,'admin','pass123');");
+		db.execSQL("INSERT INTO " + "Users" + " Values(1,'admin','pass123');");
 		
 	}
 
