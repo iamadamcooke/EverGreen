@@ -34,22 +34,20 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context, "EverGreen", null, 1);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * android.database.sqlite.SQLiteOpenHelper#onCreate(android.database.sqlite
-     * .SQLiteDatabase)
-     */
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL("PRAGMA foreign_keys=ON;");
-        db.execSQL(CREATE_TABLE_USERS);
-        db.execSQL(CREATE_TABLE_ACCOUNTS);
-        db.execSQL(CREATE_TABLE_TRANSACTIONS);
-        db.execSQL("INSERT INTO " + "Users" + " Values (1,'admin','pass123');");
+	/* (non-Javadoc)
+	 * @see android.database.sqlite.SQLiteOpenHelper#onCreate(android.database.sqlite.SQLiteDatabase)
+	 */
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+		db.execSQL("PRAGMA foreign_keys=ON;");
+		db.execSQL(CREATE_TABLE_USERS);
+		db.execSQL(CREATE_TABLE_ACCOUNTS);
+		db.execSQL(CREATE_TABLE_TRANSACTIONS);
+		db.execSQL("INSERT INTO " + "Users" + " Values(1,'admin','pass123');");
+		
+	}
 
-    }
+    
 
     /*
      * (non-Javadoc)
