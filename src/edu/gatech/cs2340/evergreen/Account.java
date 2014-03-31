@@ -20,18 +20,13 @@ public class Account {
 
     /**
      * Instantiates a new account.
-     * 
-     * @param accountName
-     *            the account name
-     * @param displayName
-     *            the display name
-     * @param balance
-     *            the balance
-     * @param interestRate
-     *            the interest rate
+     *
+     * @param accountName the account name
+     * @param displayName the display name
+     * @param balance the balance
+     * @param interestRate the interest rate
      */
-    public Account(String accountName, String displayName, double balance,
-        double interestRate) {
+    public Account(String accountName,  String displayName,  double balance,  double interestRate) {
         this.accountName = accountName;
         this.displayName = displayName;
         this.balance = balance;
@@ -40,7 +35,7 @@ public class Account {
 
     /**
      * Gets the account name.
-     * 
+     *
      * @return the account name
      */
     public String getAccountName() {
@@ -49,17 +44,18 @@ public class Account {
 
     /**
      * Sets the account name.
-     * 
-     * @param accountName
-     *            the new account name
+     *
+     * @param accountName the new account name
      */
     public void setAccountName(String accountName) {
-        this.accountName = accountName;
+        if (accountName != null) {
+            this.accountName = accountName;
+        }
     }
 
     /**
      * Gets the display name.
-     * 
+     *
      * @return the display name
      */
     public String getDisplayName() {
@@ -68,9 +64,8 @@ public class Account {
 
     /**
      * Sets the display name.
-     * 
-     * @param displayName
-     *            the new display name
+     *
+     * @param displayName the new display name
      */
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
@@ -78,7 +73,7 @@ public class Account {
 
     /**
      * Gets the balance.
-     * 
+     *
      * @return the balance
      */
     public double getBalance() {
@@ -87,9 +82,8 @@ public class Account {
 
     /**
      * Sets the balance.
-     * 
-     * @param balance
-     *            the new balance
+     *
+     * @param balance the new balance
      */
     public void setBalance(double balance) {
         this.balance = balance;
@@ -97,7 +91,7 @@ public class Account {
 
     /**
      * Gets the interest rate.
-     * 
+     *
      * @return the interest rate
      */
     public double getInterestRate() {
@@ -106,12 +100,12 @@ public class Account {
 
     /**
      * Sets the interest rate.
-     * 
-     * @param interestRate
-     *            the new interest rate
+     *
+     * @param interestRate the new interest rate
      */
     public void setInterestRate(double interestRate) {
         this.interestRate = interestRate;
     }
+
 
 }
