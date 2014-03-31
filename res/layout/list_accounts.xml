@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:id="@+id/account_layout"
-    android:onClick="OnAccountClicked"
+    android:onClick="onAccountClicked"
 	android:clickable="true"
     android:padding="5dp" >
  

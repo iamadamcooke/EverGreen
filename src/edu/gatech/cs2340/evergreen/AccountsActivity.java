@@ -1,8 +1,5 @@
 package edu.gatech.cs2340.evergreen;
 
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.os.Bundle;
@@ -16,13 +13,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -89,14 +83,14 @@ public class AccountsActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
-        case R.id.action_newAccount:
-            openNewAccountDialog();
-            return true;
-        case R.id.action_spendingReport:
-            openViewSpendingReportDialog();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.action_newAccount:
+                openNewAccountDialog();
+                return true;
+            case R.id.action_spendingReport:
+                openViewSpendingReportDialog();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -106,13 +100,13 @@ public class AccountsActivity extends Activity {
      * @param view
      *            the view
      */
-    public void OnAccountClicked(View view) {
+    public void onAccountClicked(View view) {
         final int position = lv.getPositionForView(view);
         Account acc = accounts.get(position);
         Intent intent = new Intent(getApplicationContext(),
-                    TransactionsActivity.class);
+            TransactionsActivity.class);
         intent.putExtra("account_id", dbManager.getAccountId(acc
-                    .getDisplayName(), userId));
+            .getDisplayName(), userId));
         intent.putExtra("userId", userId);
         startActivity(intent);
 
@@ -138,7 +132,7 @@ public class AccountsActivity extends Activity {
      */
     private void openNewAccountDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(
-                    AccountsActivity.this, AlertDialog.THEME_HOLO_DARK);
+            AccountsActivity.this, AlertDialog.THEME_HOLO_DARK);
 
         // Setting Dialog Title
         builder.setTitle("New Account");
@@ -162,8 +156,8 @@ public class AccountsActivity extends Activity {
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT);
         lp.setMargins(30, 0, 30, 0);
         layout.addView(name, lp);
         layout.addView(display, lp);
@@ -178,27 +172,27 @@ public class AccountsActivity extends Activity {
                 String dispName = display.getText().toString();
                 double balance = Double.parseDouble(bal.getText().toString());
                 double intRate = Double.parseDouble(ir.getText().toString());
-                long i = dbManager.createAccount(userId, accName, dispName,
-                            balance, intRate);
+                dbManager.createAccount(userId, accName, dispName,
+                    balance, intRate);
                 accounts.add(new Account(accName, dispName, balance, intRate));
                 accountsAdapter.notifyDataSetChanged();
             }
         });
         // Setting Negative "NO" Button
         builder.setNegativeButton("Cancel",
-                    new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+            new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
 
-                dialog.cancel();
-            }
-        });
+                    dialog.cancel();
+                }
+            });
 
         // closed
 
         // Showing Alert Message
         AlertDialog dialog = builder.show();
         TextView messageText = (TextView) dialog
-                    .findViewById(android.R.id.message);
+            .findViewById(android.R.id.message);
         messageText.setGravity(Gravity.CENTER);
         dialog.show();
 
@@ -209,8 +203,7 @@ public class AccountsActivity extends Activity {
      */
     private void openViewSpendingReportDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(
-                    AccountsActivity.this, AlertDialog.THEME_HOLO_DARK);
-        final String[] options = {"In", "Out"};
+            AccountsActivity.this, AlertDialog.THEME_HOLO_DARK);
         // Setting Dialog Title
         builder.setTitle("View Spending Report");
 
@@ -220,10 +213,6 @@ public class AccountsActivity extends Activity {
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setGravity(Gravity.CENTER);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-
         final TextView start = new TextView(this);
         start.setText("Start Date: ");
         start.setTextColor(Color.WHITE);
@@ -233,37 +222,37 @@ public class AccountsActivity extends Activity {
         startDateLayout.setGravity(Gravity.CENTER);
         final Spinner smonthSpinner = new Spinner(this);
         String[] monthsArray = {"01", "02", "03", "04", "05", "06", "07", "08",
-                    "09", "10", "11", "12"};
+            "09", "10", "11", "12"};
         ArrayAdapter<String> smonthSpinnerAdapter = new ArrayAdapter<String>(
-                    this, R.layout.category_spinner, monthsArray);
+            this, R.layout.category_spinner, monthsArray);
         smonthSpinner.setAdapter(smonthSpinnerAdapter);
         smonthSpinner.setGravity(Gravity.CENTER);
         smonthSpinner.setLayoutParams(new Spinner.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT));
 
         final Spinner sdaySpinner = new Spinner(this);
         String[] dayArray = {"01", "02", "03", "04", "05", "06", "07", "08",
-                    "09", "10", "11", "12", "13", "14", "15", "16", "17", "18",
-                    "19", "19", "20", "21", "22", "23", "24", "25", "26", "27",
-                    "28", "29", "30", "31"};
+            "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
+            "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29",
+            "30", "31"};
         ArrayAdapter<String> sdaySpinnerAdapter = new ArrayAdapter<String>(
-                    this, R.layout.category_spinner, dayArray);
+            this, R.layout.category_spinner, dayArray);
         sdaySpinner.setAdapter(sdaySpinnerAdapter);
         sdaySpinner.setGravity(Gravity.CENTER);
         sdaySpinner.setLayoutParams(new Spinner.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT));
 
         final Spinner syearSpinner = new Spinner(this);
         String[] yearArray = {"2014"};
         ArrayAdapter<String> syearSpinnerAdapter = new ArrayAdapter<String>(
-                    this, R.layout.category_spinner, yearArray);
+            this, R.layout.category_spinner, yearArray);
         syearSpinner.setAdapter(syearSpinnerAdapter);
         syearSpinner.setGravity(Gravity.CENTER);
         syearSpinner.setLayoutParams(new Spinner.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT));
 
         startDateLayout.addView(start);
         startDateLayout.addView(smonthSpinner);
@@ -278,32 +267,32 @@ public class AccountsActivity extends Activity {
         endDateLayout.setOrientation(LinearLayout.HORIZONTAL);
         endDateLayout.setGravity(Gravity.CENTER);
         final Spinner emonthSpinner = new Spinner(this);
-        ArrayAdapter<String> emonthSpinnerAdapter = new ArrayAdapter<String>(
-                    this, R.layout.category_spinner, monthsArray);
+        new ArrayAdapter<String>(
+            this, R.layout.category_spinner, monthsArray);
         emonthSpinner.setAdapter(smonthSpinnerAdapter);
         emonthSpinner.setGravity(Gravity.CENTER);
         emonthSpinner.setLayoutParams(new Spinner.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT));
 
         final Spinner edaySpinner = new Spinner(this);
 
-        ArrayAdapter<String> edaySpinnerAdapter = new ArrayAdapter<String>(
-                    this, R.layout.category_spinner, dayArray);
+        new ArrayAdapter<String>(
+            this, R.layout.category_spinner, dayArray);
         edaySpinner.setAdapter(sdaySpinnerAdapter);
         edaySpinner.setGravity(Gravity.CENTER);
         edaySpinner.setLayoutParams(new Spinner.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT));
 
         final Spinner eyearSpinner = new Spinner(this);
-        ArrayAdapter<String> eyearSpinnerAdapter = new ArrayAdapter<String>(
-                    this, R.layout.category_spinner, yearArray);
+        new ArrayAdapter<String>(
+            this, R.layout.category_spinner, yearArray);
         eyearSpinner.setAdapter(syearSpinnerAdapter);
         eyearSpinner.setGravity(Gravity.CENTER);
         eyearSpinner.setLayoutParams(new Spinner.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT));
 
         endDateLayout.addView(end);
         endDateLayout.addView(emonthSpinner);
@@ -320,18 +309,20 @@ public class AccountsActivity extends Activity {
             public void onClick(DialogInterface dialog, int which) {
 
                 String sdateAsString = syearSpinner.getSelectedItem()
-                            .toString()
-                            + "-"
-                            + smonthSpinner.getSelectedItem().toString()
-                            + "-" + sdaySpinner.getSelectedItem().toString();
+                    .toString()
+                    + "-"
+                    + smonthSpinner.getSelectedItem().toString()
+                    + "-"
+                    + sdaySpinner.getSelectedItem().toString();
                 String edateAsString = eyearSpinner.getSelectedItem()
-                            .toString()
-                            + "-"
-                            + emonthSpinner.getSelectedItem().toString()
-                            + "-" + edaySpinner.getSelectedItem().toString();
+                    .toString()
+                    + "-"
+                    + emonthSpinner.getSelectedItem().toString()
+                    + "-"
+                    + edaySpinner.getSelectedItem().toString();
 
                 Intent intent = new Intent(getApplicationContext(),
-                            SpendingReportActivity.class);
+                    SpendingReportActivity.class);
                 intent.putExtra("startDate", sdateAsString);
                 intent.putExtra("endDate", edateAsString);
                 intent.putExtra("userId", userId);
@@ -341,20 +332,20 @@ public class AccountsActivity extends Activity {
         });
         // Setting Negative "NO" Button
         builder.setNegativeButton("Cancel",
-                    new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                // Write your code here to execute after
-                // dialog
-                dialog.cancel();
-            }
-        });
+            new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Write your code here to execute after
+                    // dialog
+                    dialog.cancel();
+                }
+            });
 
         // closed
 
         // Showing Alert Message
         AlertDialog dialog = builder.show();
         TextView messageText = (TextView) dialog
-                    .findViewById(android.R.id.message);
+            .findViewById(android.R.id.message);
         messageText.setGravity(Gravity.CENTER);
         dialog.show();
 
