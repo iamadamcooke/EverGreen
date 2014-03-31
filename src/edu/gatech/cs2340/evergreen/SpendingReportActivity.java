@@ -7,21 +7,51 @@ import android.app.Activity;
 import android.view.Menu;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SpendingReportActivity.
+ */
 public class SpendingReportActivity extends Activity {
 
+	/** The start date. */
 	private String startDate;
+	
+	/** The end date. */
 	private String endDate;
+	
+	/** The user id. */
 	private int userId;
+	
+	/** The title. */
 	private TextView title;
+	
+	/** The db manager. */
 	private DBManager dbManager;
+	
+	/** The transactions. */
 	private ArrayList<Transaction> transactions;
+	
+	/** The total text. */
 	private TextView totalText;
+	
+	/** The food text. */
 	private TextView foodText;
+	
+	/** The entertainment text. */
 	private TextView entertainmentText;
+	
+	/** The clothing text. */
 	private TextView clothingText;
+	
+	/** The rent text. */
 	private TextView rentText;
+	
+	/** The other text. */
 	private TextView otherText;
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,13 +75,16 @@ public class SpendingReportActivity extends Activity {
 		String newED = endDateParts[0] +  endDateParts[1] + endDateParts[2];
 		title.setText("Spending Report for " + startDateText + " to " + endDateText);
 		transactions = dbManager.getTransactions(userId, newSD, newED);
-		if(transactions == null) {
+		if (transactions == null) {
 			transactions = new ArrayList<Transaction>();
 		}
 		calculateSpendingReport();
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -59,6 +92,9 @@ public class SpendingReportActivity extends Activity {
 		return true;
 	}
 	
+	/**
+	 * Calculate spending report.
+	 */
 	private void calculateSpendingReport() {
 		double total = 0;;
 		double ent = 0;;
@@ -66,22 +102,22 @@ public class SpendingReportActivity extends Activity {
 		double rent = 0;
 		double clothing = 0;
 		double other = 0;
-		if (!transactions.isEmpty()) {
-			for(Transaction t: transactions) {
-				String c= t.getCategory();
-				if(c.equals("Food")) {
+		if  (!transactions.isEmpty()) {
+			for (Transaction t: transactions) {
+				String c = t.getCategory();
+				if (c.equals("Food")) {
 					food += (-1 * t.getAmount());
 				}
-				else if(c.equals("Rent")) {
+				else if (c.equals("Rent")) {
 					rent += (-1 * t.getAmount());
 				}
-				else if(c.equals("Entertainment")) {
+				else if (c.equals("Entertainment")) {
 					ent += (-1 * t.getAmount());
 				}
-				else if (c.equals("Other")) {
+				else if  (c.equals("Other")) {
 					other += (-1 * t.getAmount());
 				}
-				else if (c.equals("Clothing")) {
+				else if  (c.equals("Clothing")) {
 					clothing += (-1 * t.getAmount());
 				}
 				else {

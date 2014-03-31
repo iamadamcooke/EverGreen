@@ -7,10 +7,21 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class WelcomeActivity.
+ */
 public class WelcomeActivity extends Activity {
 
+	/** The login button. */
 	private Button loginButton;
+	
+	/** The register button. */
 	private Button registerButton;
+	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,6 +55,9 @@ public class WelcomeActivity extends Activity {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

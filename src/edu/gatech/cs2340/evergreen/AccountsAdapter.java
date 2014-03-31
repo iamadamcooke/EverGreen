@@ -11,20 +11,42 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
  
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AccountsAdapter.
+ */
 public class AccountsAdapter extends ArrayAdapter<Account> {
+	
+	/** The context. */
 	private final Context context;
+	
+	/** The accounts. */
 	private ArrayList<Account> accounts;
  
+	/**
+	 * Instantiates a new accounts adapter.
+	 *
+	 * @param context the context
+	 * @param accounts the accounts
+	 */
 	public AccountsAdapter(Context context, ArrayList<Account> accounts) {
 		super(context, R.layout.list_accounts, accounts);
 		this.context = context;
 		this.accounts = accounts;
 	}
 	
+	/**
+	 * Sets the accounts.
+	 *
+	 * @param accounts the new accounts
+	 */
 	public void setAccounts(ArrayList<Account> accounts) {
 		this.accounts = accounts;
 	}
  
+	/* (non-Javadoc)
+	 * @see android.widget.ArrayAdapter#getView(int, android.view.View, android.view.ViewGroup)
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LayoutInflater inflater = (LayoutInflater) context
