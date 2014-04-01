@@ -305,7 +305,7 @@ public class AccountsActivity extends Activity {
         builder.setView(layout);
 
         // Setting Positive "Yes" Button
-        builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("View", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
                 String sdateAsString = syearSpinner.getSelectedItem()
